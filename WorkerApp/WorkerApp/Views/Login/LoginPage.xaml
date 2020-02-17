@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:control="clr-namespace:WorkerApp.Controls"
+             mc:Ignorable="d"
+             BackgroundImage="BackGroundImage2.png"
+             x:Class="WorkerApp.Views.Login.LoginPage">
+    <ContentPage.Resources>
+        <Color x:Key="BorderEntryColorWhite">#ffffff</Color>
+        <Color x:Key="MarkYellow">#fcae03</Color>
+        <Color x:Key="TitleProjectHearder">#1399f2</Color>
+        <Color x:Key="TextLoginEntryColor">#ffffff</Color>
+        <Color x:Key="PlaceHolderColor">LightGray</Color>
+        <Color x:Key="buttonTextColor">#ffffff</Color>
+        <Color x:Key="buttonBackground">#6aa1fc</Color>
+        <Color x:Key="buttonLessBorderTextColor">#1399f2</Color>
+
+        <Style TargetType="Button" x:Key="ButtonLessBorder">
+            <Setter Property="BorderColor" Value="Transparent"></Setter>
+            <Setter Property="BorderWidth" Value="0"></Setter>
+            <Setter Property="BackgroundColor" Value="Transparent"></Setter>
+            <Setter Property="TextColor" Value="{StaticResource buttonLessBorderTextColor}"></Setter>
+        </Style>
+
+        <Style TargetType="control:BorderEntry" x:Key="EntryInfor">
+            <Setter Property="IsCurvedCornersEnabled" Value="True"></Setter>
+            <Setter Property="BorderColor" Value="White"/>
+            <Setter Property="BorderWidth" Value="2"/>
+            <Setter Property="PlaceholderColor" Value="LightGray"/>
+            <Setter Property="TextColor" Value="White"/>
+            <Setter Property="CornerRadius" Value="25"/>
+            <Setter Property="Margin" Value="0,10,0,0"/>
+        </Style>
+
+    </ContentPage.Resources>
+    <Grid >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="5*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="9*"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.RowSpan="2" Grid.ColumnSpan="3" Opacity="0.2" BackgroundColor="{StaticResource MarkYellow}"></Grid>
+        <Grid Grid.Row="0" Grid.ColumnSpan="3" VerticalOptions="EndAndExpand">
+            <Grid HorizontalOptions="Center">
+                <Label Text="IRES" FontSize="70"  TextColor="{StaticResource TitleProjectHearder}" FontAttributes="Bold">
+                    <Label.FontFamily>
+                        <OnPlatform x:TypeArguments="x:String">
+                            <On Platform="Android" Value="Charmonman-Bold.ttf#Charmonman-Bold"/>
+                        </OnPlatform>
+                    </Label.FontFamily>
+                </Label>
+            </Grid>
+        </Grid>
+
+        <Grid  Grid.Row="1" Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="5"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="0"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="10"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+
+            <control:BorderEntry Grid.Row="2" HorizontalTextAlignment="Center"
+                        x:Name="txbUserName" TextColor="{StaticResource TextLoginEntryColor}"
+                        Placeholder="Email Or Phone" PlaceholderColor="{StaticResource PlaceHolderColor}"
+                        IsCurvedCornersEnabled="True"
+                        BorderColor="{StaticResource BorderEntryColorWhite}" 
+                        CornerRadius="25" BorderWidth="2"/>
+
+
+            <control:BorderEntry Grid.Row="4" Placeholder="Password" PlaceholderColor="{StaticResource PlaceHolderColor}"
+                        IsCurvedCornersEnabled="True"  HorizontalTextAlignment="Center"
+                        BorderColor="{StaticResource BorderEntryColorWhite}"  CornerRadius="25"
+                        BorderWidth="2"  TextColor="{StaticResource TextLoginEntryColor}"
+                        IsPassword="True"/>
+
+            <Grid Grid.Row="6">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+
+                <Button Grid.Column="1" Margin="0,-10" Text="Forgot Password?" x:Name="btnForgotPass" Style="{StaticResource ButtonLessBorder}"></Button>
+            </Grid>
+
+            <Button  HeightRequest="45" VerticalOptions="Center" x:Name="btnLogin" CornerRadius="25" TextColor="{StaticResource buttonTextColor}"
+                     BackgroundColor="{StaticResource buttonBackground}" Grid.Row="8" Text="Login"></Button>
+
+        </Grid>
+
+        <!--<StackLayout Orientation="Horizontal" Grid.Row="1" Grid.ColumnSpan="2" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="End" Margin="0,0,0,5">
+            <Label Margin="5,0,0,0" Text="Don't have an account?" VerticalTextAlignment="Center" TextColor="{StaticResource TextLoginEntryColor}" VerticalOptions="Center" FontSize="17"/>
+            <Button Text="Sign Up" Style="{StaticResource ButtonLessBorder}" Padding="-10,0"
+                    x:Name="btnSignUp"
+                    Margin="-5,0" VerticalOptions="Center"></Button>
+        </StackLayout>-->
+    </Grid>
+</ContentPage>

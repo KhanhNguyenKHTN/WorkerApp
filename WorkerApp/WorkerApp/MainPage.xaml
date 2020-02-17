@@ -1,0 +1,144 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:flv="clr-namespace:DLToolkit.Forms.Controls;assembly=DLToolkit.Forms.Controls.FlowListView"
+             mc:Ignorable="d"
+             x:Class="WorkerApp.MainPage">
+
+    <ContentPage.Resources>
+        <OnPlatform x:Key="FontIcon" x:TypeArguments="x:String">
+            <!--<On Platform="iOS" Value="icofont" />-->
+            <On Platform="Android" Value="icofont.ttf#icofont" />
+        </OnPlatform>
+        <Style TargetType="Label">
+            <Setter Property="FontFamily" Value="{StaticResource FontIcon}"></Setter>
+            <Setter Property="FontAttributes" Value="Bold"/>
+            <Setter Property="FontSize" Value="20"/>
+        </Style>
+
+        <Style TargetType="Button">
+            <Setter Property="FontFamily" Value="{StaticResource FontIcon}"></Setter>
+            <Setter Property="FontAttributes" Value="Bold"/>
+            <Setter Property="FontSize" Value="20"/>
+        </Style>
+
+        <Style TargetType="Frame">
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="CornerRadius" Value="10"/>
+            <Setter Property="BorderColor" Value="#34aeeb"/>
+        </Style>
+    </ContentPage.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        <ListView HasUnevenRows="True" SeparatorColor="Black" x:Name="lsFoods">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <ViewCell.ContextActions>
+                            <MenuItem IsDestructive="True" Text="Hủy Món" />
+                        </ViewCell.ContextActions>
+                        <ViewCell.View>
+                            <ContentView BackgroundColor="#ffffff">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                    </Grid.RowDefinitions>
+                                    <StackLayout Orientation="Horizontal" HeightRequest="120">
+                                        <Image VerticalOptions="Center" Source="{Binding ImagesSource}" Aspect="AspectFill" Margin="5,5" HeightRequest="100" WidthRequest="100"></Image>
+
+                                        <Grid Margin="5,0,0,0" RowSpacing="0" ColumnSpacing="10">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition/>
+                                                <RowDefinition/>
+                                                <RowDefinition/>
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="auto"/>
+                                                <ColumnDefinition/>
+                                            </Grid.ColumnDefinitions>
+                                            <Label Grid.Row="0" Grid.Column="0" TextColor="#0394fc" Text="&#xeb48;" VerticalOptions="Center"></Label>
+                                            <Label Grid.Row="1" Grid.Column="0" TextColor="#0394fc" Text="&#xef76;" VerticalOptions="Center"></Label>
+                                            <Label Grid.Row="2" Grid.Column="0" TextColor="#0394fc" Text="&#xead9;"  VerticalOptions="Center"></Label>
+
+                                            <Label Grid.Row="0" Grid.Column="1" Text="{Binding LabName}"  VerticalOptions="Center"></Label>
+                                            <Label Grid.Row="1" Grid.Column="1" Text="{Binding OrderQuantity,Mode=TwoWay}"  VerticalOptions="Center"></Label>
+                                            <Label Grid.Row="2" Grid.Column="1" Text="{Binding Description,Mode=TwoWay}" MaxLines="1" LineBreakMode="TailTruncation"
+                                                                   Margin="0,0,0,5" HorizontalOptions="FillAndExpand" VerticalOptions="Center">
+                                                <Label.GestureRecognizers>
+                                                    <TapGestureRecognizer Tapped="ItemTap"></TapGestureRecognizer>
+                                                </Label.GestureRecognizers>
+                                            </Label>
+                                        </Grid>
+                                    </StackLayout>
+
+                                    <StackLayout Orientation="Horizontal" Grid.Row="1"  Margin="0,0,0,5"
+                                                 HeightRequest="35" VerticalOptions="Start" HorizontalOptions="Center">
+                                        <!--<Button CornerRadius="10" Text="&#xeedd; Hủy" BackgroundColor="#ed8077" TextColor="White"/>-->
+                                        <Button CornerRadius="10" FontSize="14" HeightRequest="35" MinimumHeightRequest="35" Clicked="btnDoneClicked"
+                                                Padding="0" BackgroundColor="#3eed78" TextColor="White" BindingContext="{Binding Source={x:Reference lsFoods},Path=BindingContext }">
+                                            <Button.Triggers>
+                                                <DataTrigger TargetType="Button" Binding="{Binding SelectedIndex}" Value="1">
+                                                    <Setter Property="Text" Value="&#xf022; Start"></Setter>
+                                                </DataTrigger>
+                                                <DataTrigger TargetType="Button" Binding="{Binding SelectedIndex}" Value="2">
+                                                    <Setter Property="Text" Value="&#xf021; Xong"></Setter>
+                                                </DataTrigger>
+                                            </Button.Triggers>
+                                        </Button>
+                                    </StackLayout>
+                                </Grid>
+
+
+                            </ContentView>
+                        </ViewCell.View>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <Grid Grid.Row="1" BackgroundColor="LightGray">
+            <Grid Margin="0,0.5,0,0" ColumnSpacing="0.5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <Grid BackgroundColor="White" x:Name="gridMenu">
+                    <Grid.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="waitingTab"></TapGestureRecognizer>
+                    </Grid.GestureRecognizers>
+                    <StackLayout HorizontalOptions="Center" VerticalOptions="Center" Orientation="Horizontal">
+                        <Label Text="&#xf022;   Đang chờ" VerticalOptions="Center" HorizontalOptions="Center">
+                            <Label.Triggers>
+                                <DataTrigger TargetType="Label" Binding="{Binding SelectedIndex}" Value="1">
+                                    <Setter Property="TextColor" Value="#2b9bf0"></Setter>
+                                </DataTrigger>
+                            </Label.Triggers>
+                        </Label>
+                    </StackLayout>
+                </Grid>
+
+                <Grid Grid.Column="1" BackgroundColor="White">
+                    <Grid.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="doingTab"/>
+                    </Grid.GestureRecognizers>
+                    <StackLayout HorizontalOptions="Center" VerticalOptions="Center" Orientation="Horizontal">
+                        <Label Text="&#xeb4e;   Đang Làm" VerticalOptions="Center" HorizontalOptions="Center">
+                            <Label.Triggers>
+                                <DataTrigger TargetType="Label" Binding="{Binding SelectedIndex}" Value="2">
+                                    <Setter Property="TextColor" Value="#2b9bf0"></Setter>
+                                </DataTrigger>
+                            </Label.Triggers>
+                        </Label>
+                    </StackLayout>
+                </Grid>
+            </Grid>
+        </Grid>
+    </Grid>
+</ContentPage>
