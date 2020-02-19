@@ -57,7 +57,9 @@
     <PackageReference Include="Xamarin.Essentials" Version="1.3.1" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GlobalClassAndroid.cs" />
     <Compile Include="MainActivity.cs" />
+    <Compile Include="PlayAudio.cs" />
     <Compile Include="Renderers\BorderEntryRenderer.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -87,7 +89,9 @@
     <AndroidResource Include="Resources\mipmap-xxxhdpi\icon.png" />
     <AndroidResource Include="Resources\mipmap-xxxhdpi\launcher_foreground.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <AndroidAsset Include="Assets\bell.mp3" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\WorkerApp\WorkerApp.csproj">
       <Project>{E7BA4FE2-BC10-42FF-BB65-EC4E37258C33}</Project>

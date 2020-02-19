@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using WorkerModel.Order;
 
-namespace WorkerApp.Global
+namespace Global
 {
     public class GlobalInfo
     {
@@ -13,6 +14,7 @@ namespace WorkerApp.Global
         public static string VirtualHost = "xarzdlrm";
         public static string HostName = "baboon.rmq.cloudamqp.com";
 
+        public static Pic UserLogged { get; set; }
         public static string UserLogin { get; set; }
     }
 }

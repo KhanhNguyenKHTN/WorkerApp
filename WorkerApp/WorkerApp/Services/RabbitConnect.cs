@@ -5,8 +5,8 @@ using System.Collections.Generic;
 using System.Text;
 using Newtonsoft.Json;
 using WorkerModel.Order;
-using WorkerApp.Global;
 using Xamarin.Forms;
+using Global;
 
 namespace WorkerApp.Services
 {
@@ -62,16 +62,15 @@ namespace WorkerApp.Services
 
 
                 };
-                channel.BasicConsume(queue: "cook01",
+                channel.BasicConsume(queue: GlobalInfo.UserLogged.Description,
                                      autoAck: true,
                                      consumer: consumer);
-
-                channel.BasicConsume(queue: "cook02",
-                                    autoAck: true,
-                                    consumer: consumer);
-                channel.BasicConsume(queue: "cook03",
-                                    autoAck: true,
-                                    consumer: consumer);
+                //channel.BasicConsume(queue: "cook02",
+                //                    autoAck: true,
+                //                    consumer: consumer);
+                //channel.BasicConsume(queue: "cook03",
+                //                    autoAck: true,
+                //                    consumer: consumer);
             }
             catch
             {

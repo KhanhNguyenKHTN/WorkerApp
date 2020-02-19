@@ -5,8 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Global\Global.csproj" />
-    <ProjectReference Include="..\Services\Services.csproj" />
     <ProjectReference Include="..\WorkerModel\WorkerModel.csproj" />
   </ItemGroup>
 
