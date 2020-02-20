@@ -65,12 +65,6 @@ namespace WorkerApp.Services
                 channel.BasicConsume(queue: GlobalInfo.UserLogged.Description,
                                      autoAck: true,
                                      consumer: consumer);
-                //channel.BasicConsume(queue: "cook02",
-                //                    autoAck: true,
-                //                    consumer: consumer);
-                //channel.BasicConsume(queue: "cook03",
-                //                    autoAck: true,
-                //                    consumer: consumer);
             }
             catch
             {

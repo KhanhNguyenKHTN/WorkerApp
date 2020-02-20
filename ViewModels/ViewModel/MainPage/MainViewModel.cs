@@ -53,7 +53,12 @@ namespace ViewModels.ViewModel.MainPage
 
         private bool _IsLoading;
         public bool IsLoading { get => _IsLoading; set { _IsLoading = value; OnPropertyChanged(); } }
-
+        public async Task<bool> LoadData()
+        {
+            await GetWaitingList();
+            await GetDoingList();
+            return true;
+        }
 
         public void InsertItem(OrderDetail detail)
         {
@@ -73,12 +78,27 @@ namespace ViewModels.ViewModel.MainPage
             return ListWaiting != null;
         }
 
+        public void ChangeStatusToDoing()
+        {
+            
+        }
+
         public async Task<bool> GetDoingList()
         {
             IsLoading2 = true;
             ListDoing = await service.GetListPicAndStatus(Global.GlobalInfo.UserLogged, "ĐANG THỰC HIỆN");
             IsLoading2 = false;
             return ListDoing != null;
+        }
+
+        public void StartDish()
+        {
+           // throw new NotImplementedException();
+        }
+
+        public void CompleteDish()
+        {
+            //throw new NotImplementedException();
         }
     }
 }

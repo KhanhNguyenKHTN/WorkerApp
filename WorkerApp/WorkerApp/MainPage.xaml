@@ -43,7 +43,7 @@
                 <RowDefinition/>
                 <RowDefinition Height="50"/>
             </Grid.RowDefinitions>
-            <ListView HasUnevenRows="True" IsRefreshing="{Binding isLoading}" SeparatorColor="Black" x:Name="lsFoods" BindingContext="{Binding ListDetail}">
+            <ListView HasUnevenRows="True" IsRefreshing="{Binding isLoading}" SeparatorColor="Black" x:Name="lsFoods" ItemTapped="lsFoods_ItemTapped" BindingContext="{Binding ListDetail}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
@@ -54,7 +54,6 @@
                                 <ContentView BackgroundColor="#ffffff">
                                     <Grid>
                                         <Grid.RowDefinitions>
-                                            <RowDefinition Height="auto"/>
                                             <RowDefinition Height="auto"/>
                                         </Grid.RowDefinitions>
                                         <StackLayout Orientation="Horizontal" HeightRequest="120">
@@ -85,9 +84,9 @@
                                             </Grid>
                                         </StackLayout>
 
-                                        <StackLayout Orientation="Horizontal" Grid.Row="1"  Margin="0,0,0,5"
+                                        <!--<StackLayout Orientation="Horizontal" Grid.Row="1"  Margin="0,0,0,5"
                                                      HeightRequest="35" VerticalOptions="Start" HorizontalOptions="Center">
-                                            <!--<Button CornerRadius="10" Text="&#xeedd; Hủy" BackgroundColor="#ed8077" TextColor="White"/>-->
+                                            <Button CornerRadius="10" Text="&#xeedd; Hủy" BackgroundColor="#ed8077" TextColor="White"/>
                                             <Button CornerRadius="10" FontSize="14" HeightRequest="35" MinimumHeightRequest="35" Clicked="btnDoneClicked"
                                                     Padding="0" BackgroundColor="#3eed78" TextColor="White" BindingContext="{Binding Source={x:Reference lsFoods},Path=BindingContext }">
                                                 <Button.Triggers>
@@ -99,7 +98,7 @@
                                                     </DataTrigger>
                                                 </Button.Triggers>
                                             </Button>
-                                        </StackLayout>
+                                        </StackLayout>-->
                                     </Grid>
 
 

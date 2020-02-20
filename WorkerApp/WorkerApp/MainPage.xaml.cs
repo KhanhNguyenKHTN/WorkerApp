@@ -67,18 +67,22 @@ namespace WorkerApp
 
             }
             else
-            {
-                string mess = "Đã cập nhật món " + e.Dish.LabName + " lên " + e.Quantity;
-
-                Device.BeginInvokeOnMainThread(() =>
+            { 
+                if(e.Status == "ĐANG THỰC HIỆN")
                 {
-                    isShowingAlert = true;
-                    audio.playAudio();
-                    check.Quantity = e.Quantity;
-                    Notify.Text = mess;
+                    string mess = "Đầu bếp " + e.Pic.UserInfo.DisplayName + " bắt đầu làm món " + e.Dish.LabName;
+                    Device.BeginInvokeOnMainThread(() =>
+                    {
+                        isShowingAlert = true;
+                        audio.playAudio();
+                        viewModel.ChangeStatusToDoing();
 
-                });
-                await Task.Delay(3000);
+                        Notify.Text = mess;
+
+                    });
+                    await Task.Delay(3000);
+                }
+                
             }
             ListNotifi.Remove(e);
             Device.BeginInvokeOnMainThread(() =>
@@ -96,8 +100,10 @@ namespace WorkerApp
         private async void ConnectData()
         {
             await Task.Delay(1000);
-            Device.BeginInvokeOnMainThread(() =>
+            Device.BeginInvokeOnMainThread(async () =>
             {
+                await viewModel.LoadData();
+                viewModel.ListDetail = viewModel.ListWaiting;
                 connect.ReceiveNotifyRabbitMQ();
             });
         }
@@ -134,6 +140,26 @@ namespace WorkerApp
                
             }
         }
-        
+
+        private async void lsFoods_ItemTapped(object sender, ItemTappedEventArgs e)
+        {
+            if (viewModel.SelectedIndex == 1)
+            {
+                var res = await DisplayAlert("Xác nhận", "Bạn có muốn bắt đầu món này?", "Ok", "Hủy");
+                if(res == true)
+                {
+                    viewModel.StartDish();
+                }
+
+            }
+            else
+            {
+                var res = await DisplayAlert("Xác nhận", "Bạn có muốn xác nhận hoàn thành món này?", "Ok", "Hủy");
+                if (res == true)
+                {
+                    viewModel.CompleteDish();
+                }
+            }
+        }
     }
 }
