@@ -9,6 +9,13 @@ using WorkerModel.Order;
 
 namespace Services
 {
+    class SendObject
+    {
+        [JsonProperty("id")]
+        public long Id { get; set; }
+        [JsonProperty("status")]
+        public string Status { get; set; }
+    }
     class JsonDetach
     {
         [JsonProperty("message")]
@@ -43,12 +50,36 @@ namespace Services
                 }
                 else
                 {
-                    return null;
+                    return new ObservableCollection<OrderDetail>();
                 }
             }
             catch (Exception ex)
             {
-                return null;
+                return new ObservableCollection<OrderDetail>();
+            }
+        }
+
+        public async Task ChangeStatus(OrderDetail e, string v)
+        {
+            try
+            {
+                string url = @"/order-detail/status/id/" + e.OrderDetailId + @"?status=" + v;
+                var json = JsonConvert.SerializeObject(new SendObject() { Id =e.OrderDetailId, Status = v });
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+                var response = await client.PutAsync(url,content);
+
+                if (response.IsSuccessStatusCode)
+                {
+
+                }
+                else
+                {
+                }
+            }
+            catch (Exception ex)
+            {
+
             }
         }
     }

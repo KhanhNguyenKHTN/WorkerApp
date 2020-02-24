@@ -25,16 +25,18 @@ namespace ViewModels.ViewModel.MainPage
                 OnPropertyChanged();
                 if (value == 1)
                 {
-                    ListDetail = ListWaiting;
-                    IsLoading = IsLoading1;
+                    IsWaiting = true;
                 }else
                 {
-                    ListDetail = ListDoing;
-                    IsLoading = IsLoading2;
+                    IsWaiting = false;
                 }
                     
             }
         }
+        private bool _IsWaiting = true;
+        public bool IsWaiting { get => _IsWaiting; set { _IsWaiting = value; OnPropertyChanged(); OnPropertyChanged("IsDoing"); } }
+
+        public bool IsDoing { get { return !_IsWaiting; } }
 
         private ObservableCollection<OrderDetail> _ListWaiting;
         public ObservableCollection<OrderDetail> ListWaiting { get => _ListWaiting; set { _ListWaiting = value; OnPropertyChanged(); } }
@@ -42,17 +44,12 @@ namespace ViewModels.ViewModel.MainPage
         private ObservableCollection<OrderDetail> _ListDoing;
         public ObservableCollection<OrderDetail> ListDoing { get => _ListDoing; set { _ListDoing = value; OnPropertyChanged(); } }
 
-        private ObservableCollection<OrderDetail> _ListDetail;
-        public ObservableCollection<OrderDetail> ListDetail { get => _ListDetail; set { _ListDetail = value; OnPropertyChanged(); } }
-
         private bool _IsLoading1;
         public bool IsLoading1 { get => _IsLoading1; set { _IsLoading1 = value; OnPropertyChanged(); } }
 
         private bool _IsLoading2;
         public bool IsLoading2 { get => _IsLoading2; set { _IsLoading2 = value; OnPropertyChanged(); } }
 
-        private bool _IsLoading;
-        public bool IsLoading { get => _IsLoading; set { _IsLoading = value; OnPropertyChanged(); } }
         public async Task<bool> LoadData()
         {
             await GetWaitingList();
@@ -78,9 +75,11 @@ namespace ViewModels.ViewModel.MainPage
             return ListWaiting != null;
         }
 
-        public void ChangeStatusToDoing()
+        public async void ChangeStatusToDoing(OrderDetail e)
         {
-            
+            await service.ChangeStatus(e, "ĐANG THỰC HIỆN");
+
+
         }
 
         public async Task<bool> GetDoingList()
@@ -91,13 +90,15 @@ namespace ViewModels.ViewModel.MainPage
             return ListDoing != null;
         }
 
-        public void StartDish()
+        public async void StartDish(OrderDetail e)
         {
-           // throw new NotImplementedException();
+            // throw new NotImplementedException();
+            await service.ChangeStatus(e, "ĐANG THỰC HIỆN");
         }
 
-        public void CompleteDish()
+        public async void CompleteDish(OrderDetail e)
         {
+            await service.ChangeStatus(e, "HOÀN TẤT");
             //throw new NotImplementedException();
         }
     }

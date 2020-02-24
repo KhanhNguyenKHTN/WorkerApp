@@ -29,12 +29,14 @@ namespace WorkerApp
         {
             InitializeComponent();
             viewModel = new MainViewModel();
-            BindingContext = viewModel;
+           
             MessagingCenter.Subscribe<RabbitConnect, OrderDetail>(this, "AddDetailQuere", (s, e) => {
                 ListNotifi.Add(e);
                 DisplayNotifyCation();
             });
             ConnectData();
+            audio = DependencyService.Get<IAudioNoti>();
+            BindingContext = viewModel;
         }
 
         private void DisplayNotifyCation()
@@ -75,7 +77,9 @@ namespace WorkerApp
                     {
                         isShowingAlert = true;
                         audio.playAudio();
-                        viewModel.ChangeStatusToDoing();
+                        viewModel.ListWaiting.Remove(viewModel.ListWaiting.FirstOrDefault(x => x.OrderDetailId == e.OrderDetailId));
+                        viewModel.ListDoing.Add(e);
+                        //viewModel.ChangeStatusToDoing();
 
                         Notify.Text = mess;
 
@@ -103,7 +107,7 @@ namespace WorkerApp
             Device.BeginInvokeOnMainThread(async () =>
             {
                 await viewModel.LoadData();
-                viewModel.ListDetail = viewModel.ListWaiting;
+                
                 connect.ReceiveNotifyRabbitMQ();
             });
         }
@@ -148,7 +152,7 @@ namespace WorkerApp
                 var res = await DisplayAlert("Xác nhận", "Bạn có muốn bắt đầu món này?", "Ok", "Hủy");
                 if(res == true)
                 {
-                    viewModel.StartDish();
+                    viewModel.StartDish(lsWaiting.SelectedItem as OrderDetail);
                 }
 
             }
@@ -157,9 +161,26 @@ namespace WorkerApp
                 var res = await DisplayAlert("Xác nhận", "Bạn có muốn xác nhận hoàn thành món này?", "Ok", "Hủy");
                 if (res == true)
                 {
-                    viewModel.CompleteDish();
+                    viewModel.CompleteDish(lsDoning.SelectedItem as OrderDetail);
                 }
             }
+        }
+
+        private void MenuItem_Clicked(object sender, EventArgs e)
+        {
+            var sen = sender as MenuItem;
+            var a = sen.BindingContext as OrderDetail;
+            viewModel.ChangeStatusToDoing(a);
+            viewModel.ListWaiting.Remove(a);
+            viewModel.ListDoing.Add(a);
+        }
+
+        private void MenuItem_Clicked_1(object sender, EventArgs e)
+        {
+            var sen = sender as MenuItem;
+            var a = sen.BindingContext as OrderDetail;
+            viewModel.CompleteDish(a);
+            viewModel.ListDoing.Remove(a);
         }
     }
 }

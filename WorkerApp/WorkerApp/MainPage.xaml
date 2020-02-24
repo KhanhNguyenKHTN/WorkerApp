@@ -43,12 +43,13 @@
                 <RowDefinition/>
                 <RowDefinition Height="50"/>
             </Grid.RowDefinitions>
-            <ListView HasUnevenRows="True" IsRefreshing="{Binding isLoading}" SeparatorColor="Black" x:Name="lsFoods" ItemTapped="lsFoods_ItemTapped" BindingContext="{Binding ListDetail}">
+            <ListView VerticalOptions="Fill" IsVisible="{Binding IsWaiting}" HasUnevenRows="True"  IsRefreshing="{Binding isLoading1}" 
+                      SeparatorColor="Black" x:Name="lsWaiting" ItemTapped="lsFoods_ItemTapped" ItemsSource="{Binding ListWaiting}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
                             <ViewCell.ContextActions>
-                                <MenuItem IsDestructive="True" Text="Hủy Món" />
+                                <MenuItem IsDestructive="True" Text="Bắt đầu" Clicked="MenuItem_Clicked"/>
                             </ViewCell.ContextActions>
                             <ViewCell.View>
                                 <ContentView BackgroundColor="#ffffff">
@@ -70,12 +71,12 @@
                                                     <ColumnDefinition/>
                                                 </Grid.ColumnDefinitions>
                                                 <Label Grid.Row="0" Grid.Column="0" TextColor="#0394fc" Text="&#xeb48;" VerticalOptions="Center"></Label>
-                                                <Label Grid.Row="1" Grid.Column="0" TextColor="#0394fc" Text="&#xef76;" VerticalOptions="Center"></Label>
-                                                <Label Grid.Row="2" Grid.Column="0" TextColor="#0394fc" Text="&#xead9;"  VerticalOptions="Center"></Label>
+                                                <Label Grid.Row="1" Grid.Column="0" TextColor="Red" Text="&#xef76;" VerticalOptions="Center"></Label>
+                                                <Label Grid.Row="2" Grid.Column="0" Text="&#xead9;"  VerticalOptions="Center"></Label>
 
-                                                <Label Grid.Row="0" Grid.Column="1" Text="{Binding Dish.LabName}"  VerticalOptions="Center"></Label>
-                                                <Label Grid.Row="1" Grid.Column="1" Text="{Binding Quantity,Mode=TwoWay}"  VerticalOptions="Center"></Label>
-                                                <Label Grid.Row="2" Grid.Column="1" Text="{Binding Description,Mode=TwoWay}" MaxLines="1" LineBreakMode="TailTruncation"
+                                                <Label Grid.Row="0" Grid.Column="1" FontAttributes="Bold" TextColor="#0394fc" Text="{Binding Dish.LabName}"  VerticalOptions="Center"></Label>
+                                                <Label Grid.Row="1" Grid.Column="1" TextColor="Red" Text="{Binding Quantity,Mode=TwoWay}"  VerticalOptions="Center"></Label>
+                                                <Label Grid.Row="2" Grid.Column="1" Text="{Binding Description,Mode=TwoWay}" MaxLines="1" FontSize="15" LineBreakMode="TailTruncation"
                                                                        Margin="0,0,0,5" HorizontalOptions="FillAndExpand" VerticalOptions="Center">
                                                     <Label.GestureRecognizers>
                                                         <TapGestureRecognizer Tapped="ItemTap"></TapGestureRecognizer>
@@ -83,22 +84,6 @@
                                                 </Label>
                                             </Grid>
                                         </StackLayout>
-
-                                        <!--<StackLayout Orientation="Horizontal" Grid.Row="1"  Margin="0,0,0,5"
-                                                     HeightRequest="35" VerticalOptions="Start" HorizontalOptions="Center">
-                                            <Button CornerRadius="10" Text="&#xeedd; Hủy" BackgroundColor="#ed8077" TextColor="White"/>
-                                            <Button CornerRadius="10" FontSize="14" HeightRequest="35" MinimumHeightRequest="35" Clicked="btnDoneClicked"
-                                                    Padding="0" BackgroundColor="#3eed78" TextColor="White" BindingContext="{Binding Source={x:Reference lsFoods},Path=BindingContext }">
-                                                <Button.Triggers>
-                                                    <DataTrigger TargetType="Button" Binding="{Binding SelectedIndex}" Value="1">
-                                                        <Setter Property="Text" Value="&#xf022; Start"></Setter>
-                                                    </DataTrigger>
-                                                    <DataTrigger TargetType="Button" Binding="{Binding SelectedIndex}" Value="2">
-                                                        <Setter Property="Text" Value="&#xf021; Xong"></Setter>
-                                                    </DataTrigger>
-                                                </Button.Triggers>
-                                            </Button>
-                                        </StackLayout>-->
                                     </Grid>
 
 
@@ -109,6 +94,56 @@
                 </ListView.ItemTemplate>
             </ListView>
 
+            <ListView VerticalOptions="Fill" HasUnevenRows="True"  IsVisible="{Binding IsDoing}" IsRefreshing="{Binding IsLoading2}" x:Name="lsDoning" SeparatorColor="Black"
+                      ItemTapped="lsFoods_ItemTapped" ItemsSource="{Binding ListDoing}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <ViewCell.ContextActions>
+                                <MenuItem IsDestructive="True" Text="Hoàn Thành" Clicked="MenuItem_Clicked_1"/>
+                            </ViewCell.ContextActions>
+                            <ViewCell.View>
+                                <ContentView BackgroundColor="#ffffff">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto"/>
+                                        </Grid.RowDefinitions>
+                                        <StackLayout Orientation="Horizontal" HeightRequest="120">
+                                            <Image VerticalOptions="Center" Source="{Binding Dish.ImagesSource}" Aspect="AspectFill" Margin="5,5" HeightRequest="100" WidthRequest="100"></Image>
+
+                                            <Grid Margin="5,0,0,0" RowSpacing="0" ColumnSpacing="10">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition/>
+                                                    <RowDefinition/>
+                                                    <RowDefinition/>
+                                                </Grid.RowDefinitions>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="auto"/>
+                                                    <ColumnDefinition/>
+                                                </Grid.ColumnDefinitions>
+                                                <Label Grid.Row="0" Grid.Column="0" TextColor="#0394fc" Text="&#xeb48;" VerticalOptions="Center"></Label>
+                                                <Label Grid.Row="1" Grid.Column="0" TextColor="Red" Text="&#xef76;" VerticalOptions="Center"></Label>
+                                                <Label Grid.Row="2" Grid.Column="0" Text="&#xead9;"  VerticalOptions="Center"></Label>
+
+                                                <Label Grid.Row="0" Grid.Column="1" FontAttributes="Bold" TextColor="#0394fc" Text="{Binding Dish.LabName}"  VerticalOptions="Center"></Label>
+                                                <Label Grid.Row="1" Grid.Column="1" TextColor="Red" Text="{Binding Quantity,Mode=TwoWay}"  VerticalOptions="Center"></Label>
+                                                <Label Grid.Row="2" Grid.Column="1" Text="{Binding Description,Mode=TwoWay}" MaxLines="1" LineBreakMode="TailTruncation"
+                                                                       Margin="0,0,0,5" HorizontalOptions="FillAndExpand" VerticalOptions="Center">
+                                                    <Label.GestureRecognizers>
+                                                        <TapGestureRecognizer Tapped="ItemTap"></TapGestureRecognizer>
+                                                    </Label.GestureRecognizers>
+                                                </Label>
+                                            </Grid>
+                                        </StackLayout>
+                                    </Grid>
+
+
+                                </ContentView>
+                            </ViewCell.View>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
             <Grid Grid.Row="1" BackgroundColor="LightGray">
                 <Grid Margin="0,0.5,0,0" ColumnSpacing="0.5">
                     <Grid.ColumnDefinitions>
