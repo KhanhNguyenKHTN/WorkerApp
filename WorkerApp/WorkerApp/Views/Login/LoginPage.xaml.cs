@@ -21,7 +21,8 @@ namespace WorkerApp.Views.Login
 
         private async void BtnLogin_Clicked(object sender, EventArgs e)
         {
-            if(txbUserName.Text == "chef1")
+            gridWaiting.IsVisible = true;
+            if(txbUserName.Text == "cook01")
             {
                 Global.GlobalInfo.UserLogged = new WorkerModel.Order.Pic() {
                     EmployeeId = 10,
@@ -33,7 +34,7 @@ namespace WorkerApp.Views.Login
                     },
                     Description = "cook01"
                 };
-            }else if(txbUserName.Text == "chef2")
+            }else if(txbUserName.Text == "cook02")
             {
                 Global.GlobalInfo.UserLogged = new WorkerModel.Order.Pic()
                 {
@@ -61,6 +62,12 @@ namespace WorkerApp.Views.Login
                 };
             }
             await Navigation.PushModalAsync(new MainPage());
+            gridWaiting.IsVisible = false;
+        }
+
+        private void BtnForgotPass_Clicked(object sender, EventArgs e)
+        {
+
         }
     }
 }

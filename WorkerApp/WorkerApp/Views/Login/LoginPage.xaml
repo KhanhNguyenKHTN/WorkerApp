@@ -92,7 +92,7 @@
                     <ColumnDefinition Width="auto"/>
                 </Grid.ColumnDefinitions>
 
-                <Button Grid.Column="1" Margin="0,-10" Text="Forgot Password?" x:Name="btnForgotPass" Style="{StaticResource ButtonLessBorder}"></Button>
+                <Button Grid.Column="1" Margin="0,-10" Text="Forgot Password?" x:Name="btnForgotPass" Clicked="BtnForgotPass_Clicked" Style="{StaticResource ButtonLessBorder}"></Button>
             </Grid>
 
             <Button  HeightRequest="45" VerticalOptions="Center" x:Name="btnLogin" CornerRadius="25" TextColor="{StaticResource buttonTextColor}"
@@ -100,6 +100,9 @@
 
         </Grid>
 
+        <Grid Grid.RowSpan="2" Grid.ColumnSpan="3" BackgroundColor="#99D3D3D3" IsVisible="False" x:Name="gridWaiting">
+            <ActivityIndicator HeightRequest="100" WidthRequest="100" IsRunning="True" Color="#4287f5"></ActivityIndicator>
+        </Grid>
         <!--<StackLayout Orientation="Horizontal" Grid.Row="1" Grid.ColumnSpan="2" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="End" Margin="0,0,0,5">
             <Label Margin="5,0,0,0" Text="Don't have an account?" VerticalTextAlignment="Center" TextColor="{StaticResource TextLoginEntryColor}" VerticalOptions="Center" FontSize="17"/>
             <Button Text="Sign Up" Style="{StaticResource ButtonLessBorder}" Padding="-10,0"

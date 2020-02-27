@@ -29,14 +29,14 @@ namespace Services
 
         public MainService()
         {
-            client = new HttpClient() { BaseAddress = new Uri(Global.GlobalInfo.URL) };
+            client = new HttpClient();
         }
 
         public async Task<ObservableCollection<OrderDetail>> GetListPicAndStatus(Pic cus, string status)
         {
             try
             {
-                string url = @"/order-detail/pic/" + cus.EmployeeId + @"/type/" + status;
+                string url = Global.GlobalInfo.URL + @"/order-detail/pic/" + cus.EmployeeId + @"/type/" + status;
 
                 var response = await client.GetAsync(url);
 
@@ -63,7 +63,7 @@ namespace Services
         {
             try
             {
-                string url = @"/order-detail/status/id/" + e.OrderDetailId + @"?status=" + v;
+                string url = Global.GlobalInfo.URL + @"/order-detail/status/id/" + e.OrderDetailId + @"?status=" + v;
                 var json = JsonConvert.SerializeObject(new SendObject() { Id =e.OrderDetailId, Status = v });
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
 
