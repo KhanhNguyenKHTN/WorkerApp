@@ -22,5 +22,10 @@ namespace WorkerApp.Views.Login
             Global.GlobalInfo.URL = txbMailOrPhone.Text;
             await Navigation.PopModalAsync();
         }
+
+        private async void BtnLogin_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PopModalAsync();
+        }
     }
 }

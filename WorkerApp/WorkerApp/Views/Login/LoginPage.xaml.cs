@@ -65,9 +65,11 @@ namespace WorkerApp.Views.Login
             gridWaiting.IsVisible = false;
         }
 
-        private void BtnForgotPass_Clicked(object sender, EventArgs e)
+        private async void BtnForgotPass_Clicked(object sender, EventArgs e)
         {
-
+            gridWaiting.IsVisible = true;
+            await Navigation.PushModalAsync(new ForgetPassword());
+            gridWaiting.IsVisible = false;
         }
     }
 }
