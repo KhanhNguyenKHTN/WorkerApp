@@ -49,7 +49,7 @@ namespace WorkerApp
 
         private async void ShowMessage()
         {
-            string original = "Đang chờ: " + viewModel.ListWaiting?.Count + " món";
+
             var e = ListNotifi.First();
             var check = viewModel.ListWaiting.FirstOrDefault(x => x.OrderDetailId == e.OrderDetailId);
             if (check == null)
@@ -85,14 +85,31 @@ namespace WorkerApp
 
                     });
                     await Task.Delay(3000);
+                } 
+                else if(e.Status == "ĐANG CHỜ")
+                {
+                    string mess = "Bạn không cần làm món " + e.Dish.LabName + " nữa!";
+                   
+                    Device.BeginInvokeOnMainThread(() =>
+                    {
+                        isShowingAlert = true;
+                        audio.playAudio();
+                        viewModel.ListWaiting.Remove(check);
+                        Notify.Text = mess;
+                        Notify.TextColor = Color.OrangeRed;
+                    });
+                    await Task.Delay(3000);
                 }
                 
             }
             ListNotifi.Remove(e);
+           
             Device.BeginInvokeOnMainThread(() =>
             {
                 isShowingAlert = false;
+                string original = "Đang chờ: " + viewModel.ListWaiting?.Count + " món";
                 Notify.Text = original;
+                Notify.TextColor = Color.White;
             });
 
             if (ListNotifi.Count != 0)
@@ -107,7 +124,8 @@ namespace WorkerApp
             Device.BeginInvokeOnMainThread(async () =>
             {
                 await viewModel.LoadData();
-                
+                string original = "Đang chờ: " + viewModel.ListWaiting?.Count + " món";
+                Notify.Text = original;
                 connect.ReceiveNotifyRabbitMQ();
             });
         }
