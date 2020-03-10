@@ -183,5 +183,10 @@
                 </Grid>
             </Grid>
         </Grid>
+
+        <Grid x:Name="gridWaiting" BackgroundColor="#99D3D3D3" IsVisible="True" Grid.RowSpan="2">
+            <ActivityIndicator IsRunning="True" HeightRequest="100" WidthRequest="100" Color="#4287f5"
+                               VerticalOptions="Center" HorizontalOptions="Center"></ActivityIndicator>
+        </Grid>
     </Grid>
 </ContentPage>

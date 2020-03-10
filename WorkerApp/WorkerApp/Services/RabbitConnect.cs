@@ -43,6 +43,10 @@ namespace WorkerApp.Services
 
                 var consumer = new EventingBasicConsumer(channel);
 
+                var myChanel = channel.QueueDeclare().QueueName;
+                channel.QueueBind(myChanel, "directExchange", GlobalInfo.UserLogged.Description);
+
+
                 Console.WriteLine("connecting to listen");
                 consumer.Received += (model, ea) =>
                 {
@@ -62,7 +66,7 @@ namespace WorkerApp.Services
 
 
                 };
-                channel.BasicConsume(queue: GlobalInfo.UserLogged.Description,
+                channel.BasicConsume(queue: myChanel,
                                      autoAck: true,
                                      consumer: consumer);
             }

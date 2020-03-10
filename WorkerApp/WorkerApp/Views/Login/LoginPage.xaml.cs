@@ -32,7 +32,7 @@ namespace WorkerApp.Views.Login
                         UserId = 15,
                         
                     },
-                    Description = "cook01"
+                    Description = "COOK1"
                 };
             }else if(txbUserName.Text == "cook02")
             {
@@ -45,7 +45,7 @@ namespace WorkerApp.Views.Login
                         UserId = 16,
 
                     },
-                    Description = "cook02"
+                    Description = "COOK2"
                 };
             } else
             {
@@ -58,7 +58,7 @@ namespace WorkerApp.Views.Login
                         UserId = 17,
 
                     },
-                    Description = "cook03"
+                    Description = "COOK3"
                 };
             }
             await Navigation.PushModalAsync(new MainPage());

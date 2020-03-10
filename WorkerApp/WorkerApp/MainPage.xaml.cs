@@ -120,6 +120,7 @@ namespace WorkerApp
 
         private async void ConnectData()
         {
+            
             await Task.Delay(1000);
             Device.BeginInvokeOnMainThread(async () =>
             {
@@ -127,6 +128,7 @@ namespace WorkerApp
                 string original = "Đang chờ: " + viewModel.ListWaiting?.Count + " món";
                 Notify.Text = original;
                 connect.ReceiveNotifyRabbitMQ();
+                gridWaiting.IsVisible = false;
             });
         }
 
