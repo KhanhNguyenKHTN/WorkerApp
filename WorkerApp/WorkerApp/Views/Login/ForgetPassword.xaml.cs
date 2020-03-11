@@ -19,7 +19,7 @@ namespace WorkerApp.Views.Login
 
         private async void btnSend_Clicked(object sender, EventArgs e)
         {
-            Global.GlobalInfo.URL = txbMailOrPhone.Text;
+            Global.GlobalInfo.URL = @"http://" + txbMailOrPhone.Text + @":8081 /";
             await Navigation.PopModalAsync();
         }
 
