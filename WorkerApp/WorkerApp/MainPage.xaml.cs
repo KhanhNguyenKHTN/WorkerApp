@@ -121,7 +121,7 @@ namespace WorkerApp
         private async void ConnectData()
         {
             
-            await Task.Delay(1000);
+            await Task.Delay(500);
             Device.BeginInvokeOnMainThread(async () =>
             {
                 await viewModel.LoadData();
@@ -172,7 +172,8 @@ namespace WorkerApp
                 var res = await DisplayAlert("Xác nhận", "Bạn có muốn bắt đầu món này?", "Ok", "Hủy");
                 if(res == true)
                 {
-                    viewModel.StartDish(lsWaiting.SelectedItem as OrderDetail);
+                    MenuItem_Clicked(e.Item, e);
+                   // viewModel.StartDish(lsWaiting.SelectedItem as OrderDetail);
                 }
 
             }
@@ -181,15 +182,14 @@ namespace WorkerApp
                 var res = await DisplayAlert("Xác nhận", "Bạn có muốn xác nhận hoàn thành món này?", "Ok", "Hủy");
                 if (res == true)
                 {
-                    viewModel.CompleteDish(lsDoning.SelectedItem as OrderDetail);
+                    MenuItem_Clicked_1(e.Item, e);
                 }
             }
         }
 
         private void MenuItem_Clicked(object sender, EventArgs e)
         {
-            var sen = sender as MenuItem;
-            var a = sen.BindingContext as OrderDetail;
+            var a = sender as OrderDetail;
             viewModel.ChangeStatusToDoing(a);
             viewModel.ListWaiting.Remove(a);
             viewModel.ListDoing.Add(a);
@@ -197,8 +197,7 @@ namespace WorkerApp
 
         private void MenuItem_Clicked_1(object sender, EventArgs e)
         {
-            var sen = sender as MenuItem;
-            var a = sen.BindingContext as OrderDetail;
+            var a = sender as OrderDetail;
             viewModel.CompleteDish(a);
             viewModel.ListDoing.Remove(a);
         }

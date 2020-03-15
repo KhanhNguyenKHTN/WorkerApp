@@ -48,9 +48,6 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <ViewCell.ContextActions>
-                                <MenuItem IsDestructive="True" Text="Bắt đầu" Clicked="MenuItem_Clicked"/>
-                            </ViewCell.ContextActions>
                             <ViewCell.View>
                                 <ContentView BackgroundColor="#ffffff">
                                     <Grid>
@@ -99,9 +96,6 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <ViewCell.ContextActions>
-                                <MenuItem IsDestructive="True" Text="Hoàn Thành" Clicked="MenuItem_Clicked_1"/>
-                            </ViewCell.ContextActions>
                             <ViewCell.View>
                                 <ContentView BackgroundColor="#ffffff">
                                     <Grid>
@@ -136,8 +130,6 @@
                                             </Grid>
                                         </StackLayout>
                                     </Grid>
-
-
                                 </ContentView>
                             </ViewCell.View>
                         </ViewCell>
