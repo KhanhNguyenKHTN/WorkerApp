@@ -7,7 +7,7 @@ namespace Global
 {
     public class GlobalInfo
     {
-        public static string URL = @"http://192.168.1.99:8081/";
+        public static string URL = @"http://171.227.218.132:8081/";
 
         public static string UserName = "xarzdlrm";
         public static string Password = "Be9K-7C4C1sO9hiJTJwZSHITqm7NX6LS";

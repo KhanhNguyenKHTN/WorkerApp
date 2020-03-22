@@ -101,13 +101,8 @@
         </Grid>
 
         <Grid Grid.RowSpan="2" Grid.ColumnSpan="3" BackgroundColor="#99D3D3D3" IsVisible="False" x:Name="gridWaiting">
-            <ActivityIndicator HeightRequest="100" WidthRequest="100" IsRunning="True" Color="#4287f5"></ActivityIndicator>
+            <ActivityIndicator HeightRequest="100" WidthRequest="100" VerticalOptions="Center" HorizontalOptions="Center"
+                               IsRunning="True" Color="#4287f5"></ActivityIndicator>
         </Grid>
-        <!--<StackLayout Orientation="Horizontal" Grid.Row="1" Grid.ColumnSpan="2" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="End" Margin="0,0,0,5">
-            <Label Margin="5,0,0,0" Text="Don't have an account?" VerticalTextAlignment="Center" TextColor="{StaticResource TextLoginEntryColor}" VerticalOptions="Center" FontSize="17"/>
-            <Button Text="Sign Up" Style="{StaticResource ButtonLessBorder}" Padding="-10,0"
-                    x:Name="btnSignUp"
-                    Margin="-5,0" VerticalOptions="Center"></Button>
-        </StackLayout>-->
     </Grid>
 </ContentPage>

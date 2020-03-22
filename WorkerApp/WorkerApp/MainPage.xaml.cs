@@ -193,6 +193,11 @@ namespace WorkerApp
             viewModel.ChangeStatusToDoing(a);
             viewModel.ListWaiting.Remove(a);
             viewModel.ListDoing.Add(a);
+            Device.BeginInvokeOnMainThread(async () =>
+            {
+                string original = "Đang chờ: " + viewModel.ListWaiting?.Count + " món";
+                Notify.Text = original;
+            });
         }
 
         private void MenuItem_Clicked_1(object sender, EventArgs e)
